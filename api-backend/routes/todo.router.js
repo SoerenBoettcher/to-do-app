@@ -1,15 +1,22 @@
 import { Router } from "express";
 import {
+  deleteTodoController,
+  getTodoController,
   postTodoController,
   putTodoController,
-} from "../controller/todo.controller.js";
+} from "../controllers/todo.controller.js";
+import {
+  validateTodoCreation,
+  validateTodoDeletion,
+  validateTodoUpdate,
+} from "../middlewares/todo.middleware.js";
 
 export const TodoRouter = Router();
 
-TodoRouter.post("/", postTodoController);
+TodoRouter.post("/", validateTodoCreation, postTodoController);
 
-TodoRouter.put("/", putTodoController);
+TodoRouter.put("/works", validateTodoUpdate, putTodoController);
 
-TodoRouter.get("/");
+TodoRouter.get("/", getTodoController);
 
-TodoRouter.delete("/");
+TodoRouter.delete("/", validateTodoDeletion, deleteTodoController);

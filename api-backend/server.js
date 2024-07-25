@@ -5,6 +5,7 @@ import {
   mongoDCListner,
   mongoErrorListner,
 } from "./db/db.connection.js";
+import { TodoRouter } from "./routes/todo.router.js";
 
 config();
 
@@ -15,6 +16,8 @@ app.use(json());
 mongoDCListner();
 mongoErrorListner();
 await mongoConnect();
+
+app.use("/todos", TodoRouter);
 
 app.all("*", (req, res) => {
   res.status(404).json({
