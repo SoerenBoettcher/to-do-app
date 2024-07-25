@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import express, { json } from "express";
+import cors from "cors";
 import {
   mongoConnect,
   mongoDCListner,
@@ -11,6 +12,7 @@ config();
 
 const app = express();
 
+app.use(cors());
 app.use(json());
 
 mongoDCListner();
